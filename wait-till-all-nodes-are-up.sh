@@ -29,9 +29,8 @@ function poller() {
 	return 1
 }
 
-while ! (for HOST in $HOSTS; do LAST=$HOST; poller "$HOST"; done); do 
+while ! (for HOST in $HOSTS; do poller "$HOST"; done); do 
 	echo "Not all hosts are responding to ping and ssh yet!"
-	echo "Last was $LAST"
 	sleep 2
 done
 
