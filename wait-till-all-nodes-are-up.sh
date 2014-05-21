@@ -5,7 +5,7 @@ HOSTS="agent1.c1 agent2.c1 agent3.c1"
 
 function testping() {
 	local HOST="$1"
-	ping -q -c 1 -w 1 agent1.c1  >/dev/null
+	ping -q -c 1 -w 1 "$HOST"  >/dev/null
 	if [ $? -eq 0 ] ; then 
 		return 0
 	fi
@@ -13,8 +13,8 @@ function testping() {
 }
 
 function testssh() {
-	local HOST="${1}"
-	ssh -o 'BatchMode yes' -qq "${HOST}" "exit 0"
+	local HOST="$1"
+	ssh -o 'BatchMode yes' -qq "$HOST" "exit 0"
 	if [ $? -eq 0 ]; then
 		return 0
 	fi 
