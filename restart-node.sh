@@ -11,28 +11,28 @@ if [ "${BASE_IMAGE}x" == "x" ] ; then
 	exit 1
 fi
 
+if ! ( echo $BASE_IMAGE | grep -q "base-" ) ; then
+	die "I need a base image!"
+	
+
 # We can't install vm's when not root
 if [ "$(whoami)" != "root" ] ; then 
-	echo "Run this script as root!"
-	exit 1
+	die "Run this script as root!"
 fi
 
 # Script should be run from containing dir so we can easily find the settings file 
 if [ "$0" !=  "./restart-node.sh" ] ; then 
-	echo "Please use this script as \" cd $(basename $0) && ./restart-node.sh\""
-	exit 1
+	die "Please use this script as \" cd $(basename $0) && ./restart-node.sh\""
 fi
 
 # Source settings file 
 if [ ! -f "./settings.sh" ]; then 
-	echo "Settings ./settings.sh not found in $(pwd)"
-	exit 1
+	die "Settings ./settings.sh not found in $(pwd)"
 fi
 
 source ./settings.sh
 if [ -z $VM_SETTINGS ]; then
-	echo "Settings for $BASE_IMAGE not found!"
-	exit 1
+	die "Settings for $BASE_IMAGE not found!"
 fi
 
 # }}}  
