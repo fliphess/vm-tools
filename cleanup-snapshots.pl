@@ -42,7 +42,7 @@ sub main { # {{{ - Run the main routine
 	my @cleanup;
 
 	foreach my $subvolume (@subvolumes) {
-		next if ( $subvolume =~ /base-wheezy/ or $subvolume =~ /base-squeeze64/ or $subvolume =~ /base-squeeze32/ );
+		next if ( $subvolume =~ /base-/ );
 		next if not ($subvolume  =~ /^images/ );
 		push(@cleanup,$subvolume);
 	}

@@ -1,7 +1,11 @@
 #!/bin/bash
 
-HOSTS="agent1.c1 agent2.c1 agent3.c1"
+HOSTS="$@"
 
+if [ "x${HOSTS}" == "x" ]; then 
+	echo "Usage $0 [HOSTNAME | HOSTNAME | HOSTNAME]"
+	exit 1
+fi
 
 function testping() {
 	local HOST="$1"
