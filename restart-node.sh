@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -x
 function die() { echo "Error in $0: $1"; exit 1; }
 BASE_IMAGE="$1"
 
@@ -13,6 +13,7 @@ fi
 
 if ! ( echo $BASE_IMAGE | grep -q "base-" ) ; then
 	die "I need a base image!"
+fi
 	
 
 # We can't install vm's when not root
@@ -77,4 +78,5 @@ if [ ! -f "$DEST_IMAGE" ]; then
 fi
 
 echo "Spawning node ${VM_SETTINGS[0]}"
-virt-install --name "${VM_SETTINGS[0]}" -r 2048 --vcpus 2 --os-type linux --virt-type kvm --serial pty --serial null --disk="${DEST_IMAGE},device=disk,format=raw,bus=virtio" --network=bridge=br0,mac="$MAC" --boot hd --video default &
+virt-install --name "${VM_SETTINGS[0]}" -r 2048 --vcpus 2 --os-type linux --virt-type kvm --serial pty --serial null --disk="${DEST_IMAGE},device=disk,format=raw,bus=virtio" --network=bridge=br0,mac="$MAC" --boot hd --video "default" &
+
